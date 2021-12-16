@@ -1,0 +1,33 @@
+"""blog_application URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from os import name
+from django.contrib import admin
+from django.urls import path
+from django.conf import Settings, settings
+from django.conf.urls.static import static
+from blog_app import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('add_category',views.add_category,name="add_category"),
+    path('get_category',views.get_category,name="get_category"),
+    path('del_category/<int:id>',views.del_category,name="del_category"),
+    path('upd_dategory/<int:id>',views.upd_dategory,name="upd_dategory"),
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_URL)
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
